@@ -51,7 +51,6 @@ with open(filename + ".dbc", "r", encoding="iso-8859-1") as openfileobject:
                 #Werte
                 val = line.strip().split("\"")
                 val[0] = val[0].strip().split(" ")
-                print(val)
                 g.write("\n")
                 g.write("/*******************************************************/\n")
                 g.write("/*  Signalwert: {0}       */\n".format(val[0][2])) 
