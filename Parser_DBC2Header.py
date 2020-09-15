@@ -49,16 +49,20 @@ with open(filename + ".dbc", "r", encoding="iso-8859-1") as openfileobject:
                 g.write("#define {0}{1}_unit {2}\n".format(BO, name, sg[1][3]))
             elif line.startswith('VAL_'):
                 #Werte
-                val = line.split("\"")
-                val[0] = val[0].split(" ")
+                val = line.strip().split("\"")
+                val[0] = val[0].strip().split(" ")
+                print(val)
                 g.write("\n")
                 g.write("/*******************************************************/\n")
                 g.write("/*  Signalwert: {0}       */\n".format(val[0][2])) 
                 g.write("/*******************************************************/\n")
                 for i in range(1, len(val)-1, 2):
-                    strName = val[i]
-                    strNum =  val[i-1][len(val[i-1])-1]
-                g.write("#define {0}{1}_{2} {3}\n".format(val[0][2], val[0][2], strName, strNum))
+                    strName = val[i].strip().replace(" ","_")
+                    if i > 1:
+                        strNum =  val[i-1]
+                    else:
+                        strNum =  val[i-1][3]
+                    g.write("#define {0}{1}_{2} {3}\n".format(val[0][0], val[0][2], strName, strNum))
             else:
                 pass
 print("Datei angelegt")
